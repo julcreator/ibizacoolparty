@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AffiliateButton from '@/components/AffiliateButton.astro';
+import { generateBreadcrumbSchema } from '@/lib/seo';
+
+const seo = {
+  title: 'Best Ibiza Boat Parties 2025 – Book Tickets & Sunset Cruises | Ibiza Cool Party',
+  description: 'Discover the best boat parties in Ibiza. From sunset cruises to all-day party boats — compare options, prices, and book your spot.',
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Boat Parties', url: '/boat-parties/' },
+];
+const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white">Ibiza Boat Parties</h1>
+    <p class="mt-4 text-lg text-gray-300 max-w-3xl">
+      Nothing beats dancing on the Mediterranean with the Ibiza sunset as your backdrop. Explore the best boat parties, sunset cruises, and floating raves the island has to offer.
+    </p>
+
+    <div class="mt-12 grid gap-6">
+      <div class="card p-6 sm:p-8">
+        <h2 class="font-display text-xl font-bold text-white">Sunset Boat Parties</h2>
+        <p class="mt-2 text-gray-300">Typically 3–4 hours with music, drinks, and stunning views. Perfect for starting a big night out.</p>
+        <div class="mt-4">
+          <AffiliateButton href="https://www.getyourguide.com/ibiza-l379/boat-party-tc174/">
+            Browse boat parties on GetYourGuide
+          </AffiliateButton>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-8">
+        <h2 class="font-display text-xl font-bold text-white">All-Day Party Boats</h2>
+        <p class="mt-2 text-gray-300">Full-day experiences with swimming stops, DJs, open bar packages, and non-stop dancing.</p>
+        <div class="mt-4">
+          <AffiliateButton href="https://www.getyourguide.com/ibiza-l379/boat-party-tc174/" variant="secondary">
+            See all-day options
+          </AffiliateButton>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

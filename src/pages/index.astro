@@ -1,0 +1,69 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import ClubCard from '@/components/ClubCard.astro';
+import NewsletterCTA from '@/components/NewsletterCTA.astro';
+import { getDefaultSEO, generateOrganizationSchema, generateWebsiteSchema } from '@/lib/seo';
+import { clubs } from '@/data/clubs';
+
+const seo = getDefaultSEO();
+const schema = [generateOrganizationSchema(), generateWebsiteSchema()];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <Hero
+    title="Find the Best Ibiza Parties, Tickets & Hotels"
+    subtitle="Your ultimate guide to the island's legendary nightlife. Discover clubs, boat parties, pool parties — and book everything you need for an unforgettable Ibiza experience."
+  />
+
+  <!-- Featured Clubs -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="font-display text-3xl font-bold text-white">Iconic Clubs</h2>
+      <a href="/clubs/" class="text-sm text-purple-electric hover:text-white transition-colors">View all →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {clubs.slice(0, 3).map((club) => (
+        <ClubCard
+          name={club.name}
+          slug={club.slug}
+          area={club.area}
+          genre={club.genre}
+          bestNights={club.bestNights}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Quick Links Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="font-display text-3xl font-bold text-white text-center mb-10">Plan Your Ibiza Trip</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <a href="/boat-parties/" class="card p-6 text-center group">
+        <div class="text-4xl mb-3">🚤</div>
+        <h3 class="font-display font-semibold text-white">Boat Parties</h3>
+        <p class="text-sm text-gray-400 mt-2">Sail, dance & party on the Mediterranean</p>
+      </a>
+      <a href="/hotels/" class="card p-6 text-center group">
+        <div class="text-4xl mb-3">🏨</div>
+        <h3 class="font-display font-semibold text-white">Hotels</h3>
+        <p class="text-sm text-gray-400 mt-2">Best party hotels near the clubs</p>
+      </a>
+      <a href="/transfers/" class="card p-6 text-center group">
+        <div class="text-4xl mb-3">🚐</div>
+        <h3 class="font-display font-semibold text-white">Transfers</h3>
+        <p class="text-sm text-gray-400 mt-2">Airport to hotel, hassle-free</p>
+      </a>
+      <a href="/guides/best-ibiza-parties/" class="card p-6 text-center group">
+        <div class="text-4xl mb-3">📖</div>
+        <h3 class="font-display font-semibold text-white">Party Guide</h3>
+        <p class="text-sm text-gray-400 mt-2">Everything you need to know</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <NewsletterCTA />
+  </section>
+</BaseLayout>

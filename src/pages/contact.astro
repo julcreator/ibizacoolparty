@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const seo = {
+  title: 'Contact Us | Ibiza Cool Party',
+  description: 'Get in touch with the Ibiza Cool Party team. Questions, partnerships, or corrections — we\'d love to hear from you.',
+};
+---
+
+<BaseLayout seo={seo}>
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <h1 class="font-display text-4xl font-bold text-white">Contact Us</h1>
+    <p class="mt-4 text-lg text-gray-300">
+      Have a question, suggestion, or partnership inquiry? We'd love to hear from you.
+    </p>
+
+    <div class="mt-8 card p-8">
+      <h2 class="font-display text-xl font-semibold text-white mb-4">Get in Touch</h2>
+      <p class="text-gray-300 mb-2">
+        📧 Email: <a href="mailto:hola@ibizacoolparty.com" class="text-purple-electric hover:text-white">hola@ibizacoolparty.com</a>
+      </p>
+      <p class="text-gray-400 text-sm mt-6">
+        We typically respond within 48 hours.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AffiliateButton from '@/components/AffiliateButton.astro';
+import { generateBreadcrumbSchema } from '@/lib/seo';
+
+const seo = {
+  title: 'Ibiza Airport Transfers – Book Reliable Transport | Ibiza Cool Party',
+  description: 'Book hassle-free Ibiza airport transfers to Playa d\'en Bossa, San Antonio, Ibiza Town and more. Compare options and pre-book for peace of mind.',
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Transfers', url: '/transfers/' },
+];
+const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white">Ibiza Airport Transfers</h1>
+    <p class="mt-4 text-lg text-gray-300 max-w-3xl">
+      Start your Ibiza trip stress-free. Pre-book your airport transfer and get to your hotel quickly and comfortably.
+    </p>
+
+    <div class="mt-12 grid gap-6">
+      <div class="card p-6 sm:p-8">
+        <h2 class="font-display text-xl font-bold text-white">Airport → Playa d'en Bossa</h2>
+        <p class="mt-2 text-gray-300">Just 10 minutes from the airport. Closest resort area to the terminal — home to Ushuaïa and Hï Ibiza.</p>
+        <p class="mt-2 text-sm text-gray-400">Estimated: €15–25 one way</p>
+        <div class="mt-4">
+          <AffiliateButton href="https://www.welcomepickups.com/ibiza-airport/">
+            Book transfer
+          </AffiliateButton>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-8">
+        <h2 class="font-display text-xl font-bold text-white">Airport → Ibiza Town</h2>
+        <p class="mt-2 text-gray-300">15 minutes to the historic center and port. Walking distance to Pacha.</p>
+        <p class="mt-2 text-sm text-gray-400">Estimated: €20–30 one way</p>
+        <div class="mt-4">
+          <AffiliateButton href="https://www.welcomepickups.com/ibiza-airport/" variant="secondary">
+            Book transfer
+          </AffiliateButton>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-8">
+        <h2 class="font-display text-xl font-bold text-white">Airport → San Antonio</h2>
+        <p class="mt-2 text-gray-300">25–30 minutes to the famous sunset strip and West End bars.</p>
+        <p class="mt-2 text-sm text-gray-400">Estimated: €30–45 one way</p>
+        <div class="mt-4">
+          <AffiliateButton href="https://www.welcomepickups.com/ibiza-airport/" variant="secondary">
+            Book transfer
+          </AffiliateButton>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

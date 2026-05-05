@@ -1,0 +1,56 @@
+---
+const navItems = [
+  { label: 'Events', href: '/events/' },
+  { label: 'Clubs', href: '/clubs/' },
+  { label: 'Boat Parties', href: '/boat-parties/' },
+  { label: 'Hotels', href: '/hotels/' },
+  { label: 'Transfers', href: '/transfers/' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark/90 backdrop-blur-md border-b border-white/5">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="font-display text-xl font-bold bg-gradient-to-r from-purple-electric to-neon-blue bg-clip-text text-transparent">
+      Ibiza Cool Party
+    </a>
+
+    <div class="hidden md:flex items-center gap-6">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-sm text-gray-300 hover:text-white transition-colors">
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <a href="/events/" class="btn-primary text-sm hidden sm:inline-flex">
+      Buy Tickets
+    </a>
+
+    <!-- Mobile menu button -->
+    <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-dark-light border-t border-white/5">
+    <div class="px-4 py-4 space-y-3">
+      {navItems.map((item) => (
+        <a href={item.href} class="block text-gray-300 hover:text-white py-2">
+          {item.label}
+        </a>
+      ))}
+      <a href="/events/" class="btn-primary text-sm w-full justify-center mt-4">
+        Buy Tickets
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

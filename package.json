@@ -1,0 +1,26 @@
+{
+  "name": "ibizacoolparty",
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^6.2.2",
+    "@astrojs/mdx": "^4.2.0",
+    "@astrojs/sitemap": "^3.3.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}

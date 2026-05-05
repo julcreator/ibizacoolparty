@@ -1,0 +1,207 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AffiliateButton from '@/components/AffiliateButton.astro';
+import {
+  fetchTmEvents,
+  getBestImage,
+  formatPriceRange,
+  formatEventDate,
+  getStatusLabel,
+  buildEventSlug,
+  type TmEvent,
+} from '@/lib/ticketmaster';
+import { buildTicketmasterUrl, hasClubticketsP2, buildClubticketsUrl } from '@/lib/affiliates';
+import {
+  generateBreadcrumbSchema,
+  generateEventSchema,
+} from '@/lib/seo';
+import { getClubSlugForVenue } from '@/lib/ticketmaster-venues';
+
+// ----- getStaticPaths: called once at build-time -----
+export async function getStaticPaths() {
+  let events: TmEvent[] = [];
+
+  try {
+    if (import.meta.env.TM_API_KEY) {
+      events = await fetchTmEvents();
+    }
+  } catch (e) {
+    console.warn('[events/[id]] Could not fetch TM events:', e);
+  }
+
+  return events.map((event) => ({
+    params: { id: buildEventSlug(event) },
+    props: { event },
+  }));
+}
+
+// ----- Page render -----
+const { event } = Astro.props as { event: TmEvent };
+
+const venue = event._embedded?.venues?.[0];
+const image = getBestImage(event.images);
+const price = formatPriceRange(event.priceRanges);
+const dateStr = formatEventDate(event.dates.start.localDate, event.dates.start.localTime);
+const statusCode = event.dates.status?.code;
+const statusLabel = getStatusLabel(statusCode);
+
+// Affiliate URL (Ticketmaster via Impact — P1)
+const tmAffUrl = buildTicketmasterUrl(event.url);
+
+// Detect if this venue maps to a club with Clubtickets P2
+const clubSlug = venue ? getClubSlugForVenue(venue.id) : undefined;
+const clubticketsUrl = clubSlug && hasClubticketsP2(clubSlug)
+  ? buildClubticketsUrl(`/${clubSlug}`)
+  : null;
+
+// SEO
+const seo = {
+  title: `${event.name} – Tickets | Ibiza Cool Party`,
+  description: `Buy official tickets for ${event.name} at ${venue?.name ?? 'Ibiza'}. ${dateStr}. ${price !== 'Check site' ? `Tickets from ${price}.` : ''} Secure booking via Ticketmaster.`,
+  ogImage: image?.url,
+  type: 'article' as const,
+};
+
+// Schema
+const priceRange = event.priceRanges?.find((r) => r.currency === 'EUR') ?? event.priceRanges?.[0];
+const eventSchema = generateEventSchema({
+  name: event.name,
+  startDate: event.dates.start.dateTime ?? `${event.dates.start.localDate}T${event.dates.start.localTime ?? '00:00:00'}`,
+  endDate: event.dates.end?.dateTime,
+  imageUrl: image?.url,
+  locationName: venue?.name ?? 'Ibiza',
+  locationAddress: venue?.address?.line1,
+  ticketUrl: tmAffUrl,
+  minPrice: priceRange?.min,
+  maxPrice: priceRange?.max,
+  currency: priceRange?.currency,
+  status: statusCode === 'cancelled' ? 'EventCancelled'
+    : statusCode === 'postponed' ? 'EventPostponed'
+    : statusCode === 'rescheduled' ? 'EventRescheduled'
+    : 'EventScheduled',
+});
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Events', url: '/events/' },
+  { name: event.name, url: `/events/${event.id}/` },
+];
+
+const schema = [
+  generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com'),
+  eventSchema,
+];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-400 mb-6">
+      <a href="/" class="hover:text-white">Home</a> /
+      <a href="/events/" class="hover:text-white">Events</a> /
+      <span class="text-white">{event.name}</span>
+    </nav>
+
+    <!-- Hero image -->
+    {image && (
+      <div class="rounded-xl overflow-hidden mb-8 aspect-[16/9]">
+        <img
+          src={image.url}
+          alt={event.name}
+          class="w-full h-full object-cover"
+          width={image.width}
+          height={image.height}
+        />
+      </div>
+    )}
+
+    <!-- Title + badges -->
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
+      {event.name}
+    </h1>
+
+    <div class="mt-4 flex flex-wrap gap-3">
+      {statusCode && statusCode !== 'onsale' && (
+        <span class="text-sm px-3 py-1 rounded-full bg-coral/20 text-coral font-semibold">
+          {statusLabel}
+        </span>
+      )}
+      {venue && (
+        <span class="text-sm px-3 py-1 rounded-full bg-neon-blue/20 text-neon-blue">
+          {venue.name}
+        </span>
+      )}
+    </div>
+
+    <!-- Key info grid -->
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 mb-10">
+      <div class="card p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Date</p>
+        <p class="font-semibold text-white">{dateStr}</p>
+        {event.dates.start.timeTBD && <p class="text-xs text-gray-400 mt-1">Time TBC</p>}
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Venue</p>
+        <p class="font-semibold text-white">{venue?.name ?? 'Ibiza'}</p>
+        {venue?.city && <p class="text-xs text-gray-400 mt-1">{venue.city.name}</p>}
+      </div>
+      <div class="card p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Tickets</p>
+        <p class="font-semibold text-purple-electric">{price}</p>
+      </div>
+    </section>
+
+    <!-- Additional info -->
+    {event.info && (
+      <section class="mb-8 text-gray-300 leading-relaxed">
+        <p>{event.info}</p>
+      </section>
+    )}
+    {event.pleaseNote && (
+      <section class="mb-8 p-4 bg-dark-light rounded-lg border border-white/5 text-sm text-gray-400">
+        <strong class="text-white">Please note: </strong>{event.pleaseNote}
+      </section>
+    )}
+
+    <!-- CTA: Ticketmaster P1 -->
+    <section class="card p-8 mb-8 bg-gradient-to-r from-purple-electric/10 to-neon-blue/10 text-center">
+      <h2 class="font-display text-2xl font-bold text-white mb-2">Get Official Tickets</h2>
+      <p class="text-gray-300 text-sm mb-6">
+        Secure booking via Ticketmaster · Spain allocation market · 30-day cookie
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <AffiliateButton href={tmAffUrl}>
+          Buy tickets on Ticketmaster
+        </AffiliateButton>
+        {venue && (
+          <AffiliateButton
+            href={`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(venue.city?.name ?? 'Ibiza')}&aid=${import.meta.env.BOOKING_AID ?? '0000000'}`}
+            variant="secondary"
+          >
+            Hotels nearby
+          </AffiliateButton>
+        )}
+      </div>
+    </section>
+
+    <!-- Clubtickets P2 (Hi Ibiza + Ushuaïa only) -->
+    {clubticketsUrl && (
+      <section class="card p-6 mb-8 text-center border-dashed">
+        <p class="text-sm text-gray-400 mb-3">Also available on Clubtickets</p>
+        <AffiliateButton href={clubticketsUrl} variant="secondary">
+          Check on Clubtickets
+        </AffiliateButton>
+      </section>
+    )}
+
+    <!-- Back link -->
+    {clubSlug && (
+      <div class="mt-8">
+        <a href={`/clubs/${clubSlug}/`} class="text-sm text-gray-400 hover:text-white transition-colors">
+          ← Back to {venue?.name ?? 'club'} guide
+        </a>
+      </div>
+    )}
+  </article>
+</BaseLayout>

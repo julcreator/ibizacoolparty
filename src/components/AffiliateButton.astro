@@ -1,0 +1,17 @@
+---
+import { getAffiliateAttrs } from '@/lib/affiliates';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+  class?: string;
+}
+
+const { href, variant = 'primary', class: className = '' } = Astro.props;
+const attrs = getAffiliateAttrs();
+const btnClass = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+---
+
+<a href={href} {...attrs} class:list={[btnClass, className]}>
+  <slot />
+</a>

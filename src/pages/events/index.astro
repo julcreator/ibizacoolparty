@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EventCard from '@/components/EventCard.astro';
+import { fetchTmEvents } from '@/lib/ticketmaster';
+import { generateBreadcrumbSchema } from '@/lib/seo';
+
+// Fetch all Ibiza events at build-time from TM Discovery Feed
+// Graceful: if TM_API_KEY is absent, returns [] and page renders empty state
+let events: Awaited<ReturnType<typeof fetchTmEvents>> = [];
+try {
+  if (import.meta.env.TM_API_KEY) {
+    events = await fetchTmEvents();
+  }
+} catch (e) {
+  console.warn('[events/index] Could not fetch TM events:', e);
+}
+
+const seo = {
+  title: `Ibiza Tickets & Events 2025 – Buy Online | Ibiza Cool Party`,
+  description: `Browse upcoming Ibiza events and buy tickets online. Hï Ibiza, Ushuaïa, Pacha, Amnesia, DC10 and more — official Ticketmaster tickets.`,
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Events', url: '/events/' },
+];
+const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white">
+      Ibiza Events &amp; Tickets
+    </h1>
+    <p class="mt-4 text-lg text-gray-300 max-w-3xl">
+      Official tickets for the best events in Ibiza. Buy online via Ticketmaster — secure, instant confirmation, Spain allocation market.
+    </p>
+
+    {events.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {events.map((event) => (
+          <EventCard event={event} />
+        ))}
+      </div>
+    ) : (
+      <div class="mt-12 card p-12 text-center">
+        <p class="text-2xl mb-4">🎉</p>
+        <h2 class="font-display text-xl text-white mb-2">Season events loading soon</h2>
+        <p class="text-gray-400">
+          Ibiza season runs May – October. Check back soon or{' '}
+          <a href="/clubs/" class="text-purple-electric hover:text-white">browse our club guides</a>.
+        </p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0B0B14;
+  --color-dark-light: #12121F;
+  --color-purple-electric: #8B5CF6;
+  --color-neon-blue: #22D3EE;
+  --color-coral: #FF6B6B;
+  --color-sand: #FFF7ED;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-dark);
+    color: white;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-purple-electric);
+    color: white;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: background-color 0.15s;
+  }
+  .btn-primary:hover {
+    background-color: #7c3aed;
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--color-neon-blue);
+    color: var(--color-neon-blue);
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: background-color 0.15s;
+  }
+  .btn-secondary:hover {
+    background-color: rgba(34, 211, 238, 0.1);
+  }
+  .card {
+    background-color: var(--color-dark-light);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .card:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+}

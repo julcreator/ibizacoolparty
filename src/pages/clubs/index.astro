@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ClubCard from '@/components/ClubCard.astro';
+import { generateBreadcrumbSchema } from '@/lib/seo';
+import { clubs } from '@/data/clubs';
+
+const seo = {
+  title: 'Best Clubs in Ibiza – Tickets, Guides & What to Expect | Ibiza Cool Party',
+  description: 'Discover the best clubs in Ibiza for 2025. Get tickets, insider tips, best nights, and everything you need to know about Hï Ibiza, Ushuaïa, Pacha, Amnesia, DC10 and more.',
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Clubs', url: '/clubs/' },
+];
+const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white">Best Clubs in Ibiza</h1>
+    <p class="mt-4 text-lg text-gray-300 max-w-3xl">
+      From mega-clubs with world-class production to underground temples of techno — explore Ibiza's legendary venues and find tickets for the best nights.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+      {clubs.map((club) => (
+        <ClubCard
+          name={club.name}
+          slug={club.slug}
+          area={club.area}
+          genre={club.genre}
+          bestNights={club.bestNights}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

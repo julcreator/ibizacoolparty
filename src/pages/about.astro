@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const seo = {
+  title: 'About Ibiza Cool Party – Your Ibiza Nightlife Guide',
+  description: 'Ibiza Cool Party is your trusted guide to the island\'s best clubs, parties, hotels, and travel tips. Learn more about who we are.',
+};
+---
+
+<BaseLayout seo={seo}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 prose prose-invert">
+    <h1>About Ibiza Cool Party</h1>
+    <p>
+      We're a team of Ibiza lovers dedicated to helping you plan the ultimate party trip to the White Isle.
+    </p>
+    <p>
+      Whether it's your first time or your tenth summer in Ibiza, we provide up-to-date, honest information about the island's clubs, boat parties, pool parties, hotels, and transfers — so you can spend less time planning and more time dancing.
+    </p>
+    <h2>What We Cover</h2>
+    <ul>
+      <li><strong>Clubs</strong> – In-depth guides to every major venue</li>
+      <li><strong>Boat Parties</strong> – The best floating raves and sunset cruises</li>
+      <li><strong>Hotels</strong> – Where to stay near the action</li>
+      <li><strong>Transfers</strong> – Getting from A to B without the stress</li>
+      <li><strong>Weekly Parties</strong> – What's on every night of the week</li>
+    </ul>
+    <h2>Affiliate Partnerships</h2>
+    <p>
+      Some links on our site are affiliate links. This means we may earn a small commission when you book through us — at no extra cost to you. See our <a href="/affiliate-disclosure/">full disclosure</a>.
+    </p>
+  </article>
+</BaseLayout>

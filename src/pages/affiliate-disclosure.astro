@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const seo = {
+  title: 'Affiliate Disclosure | Ibiza Cool Party',
+  description: 'Learn how Ibiza Cool Party earns revenue through affiliate partnerships with ticket platforms, hotels, and transfer services.',
+  noindex: true,
+};
+---
+
+<BaseLayout seo={seo}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 prose prose-invert">
+    <h1>Affiliate Disclosure</h1>
+    <p>
+      Ibiza Cool Party is a participant in several affiliate programs. This means that when you click on certain links on our site and make a purchase or booking, we may earn a commission at no additional cost to you.
+    </p>
+    <h2>Our Partners</h2>
+    <p>We work with the following affiliate programs:</p>
+    <ul>
+      <li><strong>Clubtickets</strong> – Club tickets and event entry for Ibiza venues</li>
+      <li><strong>Booking.com</strong> – Hotel and accommodation bookings</li>
+      <li><strong>GetYourGuide</strong> – Tours, boat parties, and experiences</li>
+      <li><strong>Welcome Pickups</strong> – Airport transfers and transportation</li>
+    </ul>
+    <h2>How It Works</h2>
+    <p>
+      When you book through our links, the service provider pays us a small commission. This does not affect the price you pay — you pay the same amount as if you'd gone directly to the provider's website.
+    </p>
+    <h2>Our Commitment</h2>
+    <p>
+      We only recommend services and venues that we genuinely believe will enhance your Ibiza experience. Our editorial content is independent and not influenced by our affiliate relationships.
+    </p>
+    <p>
+      If you have any questions about our affiliate partnerships, please <a href="/contact/">contact us</a>.
+    </p>
+  </article>
+</BaseLayout>

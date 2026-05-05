@@ -1,0 +1,40 @@
+---
+import type { SEOProps } from '@/lib/seo';
+
+interface Props extends SEOProps {}
+
+const { title, description, canonical, ogImage, type = 'website', noindex = false } = Astro.props;
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.ibizacoolparty.com';
+const canonicalUrl = canonical ? `${siteUrl}${canonical}` : Astro.url.href;
+const image = ogImage ?? `${siteUrl}/og-default.jpg`;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={image} />
+<meta property="og:site_name" content="Ibiza Cool Party" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
