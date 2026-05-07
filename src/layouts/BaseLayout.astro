@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import SEOHead from '@/components/SEOHead.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import { SpeedInsights } from '@vercel/speed-insights/astro';
 import type { SEOProps } from '@/lib/seo';
 
 interface Props {
@@ -28,5 +29,6 @@ const { seo, schema = [] } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <SpeedInsights />
   </body>
 </html>
