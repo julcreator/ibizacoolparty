@@ -59,7 +59,7 @@ export const affiliateConfig: AffiliateConfig = {
   },
   booking: {
     baseUrl: 'https://www.booking.com',
-    aid: import.meta.env.BOOKING_AID ?? '0000000',
+    aid: import.meta.env.BOOKING_AID ?? '101745433',
   },
 };
 
