@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import AffiliateButton from '@/components/AffiliateButton.astro';
 import { generateBreadcrumbSchema } from '@/lib/seo';
+import { buildGygUrl } from '@/lib/affiliates';
 
 const seo = {
   title: 'Best Ibiza Boat Parties 2025 – Book Tickets & Sunset Cruises | Ibiza Cool Party',
@@ -13,6 +14,10 @@ const breadcrumbs = [
   { name: 'Boat Parties', url: '/boat-parties/' },
 ];
 const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+
+// Verified GYG URLs (May 2025)
+const gygBoatParties = buildGygUrl('/ibiza-l276/boat-parties-tc821/');
+const gygCruises    = buildGygUrl('/ibiza-l276/cruises-boat-tours-tc48/');
 ---
 
 <BaseLayout seo={seo} schema={schema}>
@@ -27,7 +32,7 @@ const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolpart
         <h2 class="font-display text-xl font-bold text-white">Sunset Boat Parties</h2>
         <p class="mt-2 text-gray-300">Typically 3–4 hours with music, drinks, and stunning views. Perfect for starting a big night out.</p>
         <div class="mt-4">
-          <AffiliateButton href="https://www.getyourguide.com/ibiza-l379/boat-party-tc174/">
+          <AffiliateButton href={gygBoatParties}>
             Browse boat parties on GetYourGuide
           </AffiliateButton>
         </div>
@@ -37,8 +42,8 @@ const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolpart
         <h2 class="font-display text-xl font-bold text-white">All-Day Party Boats</h2>
         <p class="mt-2 text-gray-300">Full-day experiences with swimming stops, DJs, open bar packages, and non-stop dancing.</p>
         <div class="mt-4">
-          <AffiliateButton href="https://www.getyourguide.com/ibiza-l379/boat-party-tc174/" variant="secondary">
-            See all-day options
+          <AffiliateButton href={gygCruises} variant="secondary">
+            See cruises & boat tours
           </AffiliateButton>
         </div>
       </div>
