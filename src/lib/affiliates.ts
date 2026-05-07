@@ -55,7 +55,7 @@ export const affiliateConfig: AffiliateConfig = {
   },
   getyourguide: {
     baseUrl: 'https://www.getyourguide.com',
-    partnerId: import.meta.env.GYG_PARTNER_ID ?? 'REPLACE_WITH_GYG_ID',
+    partnerId: import.meta.env.GYG_PARTNER_ID ?? 'BCOUV2W',
   },
   booking: {
     baseUrl: 'https://www.booking.com',
