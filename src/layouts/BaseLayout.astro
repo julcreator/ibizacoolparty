@@ -20,6 +20,7 @@ const { seo, schema = [] } = Astro.props;
     {schema.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
+    <slot name="head" />
   </head>
   <body>
     <Header />
