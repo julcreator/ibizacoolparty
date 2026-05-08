@@ -8,7 +8,8 @@ export type AffiliatePartner =
   | 'ticketmaster'
   | 'clubtickets'
   | 'getyourguide'
-  | 'booking';
+  | 'booking'
+  | 'welcomepickups';
 
 export interface AffiliateLink {
   url: string;
@@ -39,6 +40,11 @@ export interface AffiliateConfig {
     /** Affiliate ID from Booking.com affiliate program */
     aid: string;
   };
+  welcomepickups: {
+    baseUrl: string;
+    /** Travelpayouts affiliate marker */
+    tpMarker: string;
+  };
 }
 
 export const affiliateConfig: AffiliateConfig = {
@@ -60,6 +66,10 @@ export const affiliateConfig: AffiliateConfig = {
   booking: {
     baseUrl: 'https://www.booking.com',
     aid: import.meta.env.BOOKING_AID ?? '101745433',
+  },
+  welcomepickups: {
+    baseUrl: 'https://www.welcomepickups.com',
+    tpMarker: import.meta.env.TP_MARKER ?? '526733',
   },
 };
 
@@ -95,6 +105,14 @@ export function buildClubticketsUrl(path: string): string {
   const base = `${affiliateConfig.clubtickets.baseUrl}${path}`;
   const url = new URL(base);
   url.searchParams.set('aff', affiliateConfig.clubtickets.tag);
+  return url.toString();
+}
+
+/** Build a Welcome Pickups affiliate link (via Travelpayouts marker) */
+export function buildWelcomePickupsUrl(path: string): string {
+  const base = `${affiliateConfig.welcomepickups.baseUrl}${path}`;
+  const url = new URL(base);
+  url.searchParams.set('marker', affiliateConfig.welcomepickups.tpMarker);
   return url.toString();
 }
 

@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import AffiliateButton from '@/components/AffiliateButton.astro';
 import { generateBreadcrumbSchema } from '@/lib/seo';
+import { buildWelcomePickupsUrl } from '@/lib/affiliates';
 
 const seo = {
   title: 'Ibiza Airport Transfers – Book Reliable Transport | Ibiza Cool Party',
@@ -13,6 +14,9 @@ const breadcrumbs = [
   { name: 'Transfers', url: '/transfers/' },
 ];
 const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+
+// Welcome Pickups affiliate URL with Travelpayouts marker
+const wpUrl = buildWelcomePickupsUrl('/ibiza-airport/');
 ---
 
 <BaseLayout seo={seo} schema={schema}>
@@ -28,7 +32,7 @@ const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolpart
         <p class="mt-2 text-gray-300">Just 10 minutes from the airport. Closest resort area to the terminal — home to Ushuaïa and Hï Ibiza.</p>
         <p class="mt-2 text-sm text-gray-400">Estimated: €15–25 one way</p>
         <div class="mt-4">
-          <AffiliateButton href="https://www.welcomepickups.com/ibiza-airport/">
+          <AffiliateButton href={wpUrl}>
             Book transfer
           </AffiliateButton>
         </div>
@@ -39,7 +43,7 @@ const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolpart
         <p class="mt-2 text-gray-300">15 minutes to the historic center and port. Walking distance to Pacha.</p>
         <p class="mt-2 text-sm text-gray-400">Estimated: €20–30 one way</p>
         <div class="mt-4">
-          <AffiliateButton href="https://www.welcomepickups.com/ibiza-airport/" variant="secondary">
+          <AffiliateButton href={wpUrl} variant="secondary">
             Book transfer
           </AffiliateButton>
         </div>
@@ -50,7 +54,7 @@ const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolpart
         <p class="mt-2 text-gray-300">25–30 minutes to the famous sunset strip and West End bars.</p>
         <p class="mt-2 text-sm text-gray-400">Estimated: €30–45 one way</p>
         <div class="mt-4">
-          <AffiliateButton href="https://www.welcomepickups.com/ibiza-airport/" variant="secondary">
+          <AffiliateButton href={wpUrl} variant="secondary">
             Book transfer
           </AffiliateButton>
         </div>
