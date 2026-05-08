@@ -36,13 +36,13 @@ export const clubs: Club[] = [
     dressCode: 'Smart casual. No football shirts, no flip-flops.',
     priceRange: '€30–€80',
     ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Hi+Ibiza',
-    clubticketsUrl: 'https://www.clubtickets.com/hi-ibiza', // P2 complement
+    clubticketsUrl: 'https://www.clubtickets.com/hi-ibiza',
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa',
     tmVenueId: 'KovZpZAFJa6E',
     pexelsQuery: 'Ibiza nightclub electronic music',
     youtubeVideos: [
-      { id: 'P4zCWMSGQVs', title: 'Hï Ibiza — Season Opening 2024' },
-      { id: 'tQ0tplzKbss', title: 'Hï Ibiza — Official Aftermovie' },
+      { id: '8keYXGt_HcU', title: 'Hï Ibiza — Opening Party 2024' },
+      { id: 'OJnvJ9L-nLg', title: 'James Hype Live from Hï Ibiza 2024' },
     ],
     faqs: [
       { question: 'What time does Hï Ibiza open?', answer: 'Doors typically open at 23:00 and the club runs until 06:00.' },
@@ -61,13 +61,13 @@ export const clubs: Club[] = [
     dressCode: 'Swimwear and casual during day events.',
     priceRange: '€40–€100',
     ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Ushuaia+Ibiza',
-    clubticketsUrl: 'https://www.clubtickets.com/ushuaia', // P2 complement
+    clubticketsUrl: 'https://www.clubtickets.com/ushuaia',
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa',
     tmVenueId: 'KovZpZAFJaAE',
     pexelsQuery: 'Ibiza pool party outdoor festival',
     youtubeVideos: [
-      { id: 'vYzRPcvmBbU', title: 'Ushuaïa Ibiza — Season Opening 2024' },
-      { id: 'ZIxF9mM7sBM', title: 'Ushuaïa Ibiza — Best Moments' },
+      { id: 'uDfq8zPUoEk', title: 'Ushuaïa Ibiza — Official Aftermovie 2025' },
+      { id: '8AKOhpvy1Ck', title: 'Ushuaïa Ibiza — Night Club July 2024' },
     ],
     faqs: [
       { question: 'Is Ushuaïa a daytime or nighttime club?', answer: 'Primarily daytime/early evening. Events usually run from 16:00 to midnight.' },
@@ -90,8 +90,8 @@ export const clubs: Club[] = [
     tmVenueId: 'KovZpZAFJa7E',
     pexelsQuery: 'Ibiza nightclub glamour party luxury',
     youtubeVideos: [
-      { id: 'l2LNe6Zr2bk', title: 'Pacha Ibiza — Opening Party 2024' },
-      { id: 'pD5yFqyzMDk', title: 'Pacha Ibiza — Official Aftermovie' },
+      { id: 'VR5T5lrrZbQ', title: 'CamelPhat at Pacha — Opening Party 2024' },
+      { id: 'Ckd_q1SAviA', title: 'Pacha Ibiza — Flower Power Highlights 2024' },
     ],
     faqs: [
       { question: 'What is Pacha Ibiza known for?', answer: 'Pacha is the oldest and most iconic club in Ibiza, famous for its glamorous atmosphere, cherry logo, and legendary parties since 1973.' },
@@ -114,8 +114,8 @@ export const clubs: Club[] = [
     tmVenueId: 'KovZpZAFJaEE',
     pexelsQuery: 'Ibiza techno rave underground club',
     youtubeVideos: [
-      { id: 'hJ_lq0TQEM4', title: 'Amnesia Ibiza — Season Opening 2024' },
-      { id: 'A9HfbRxpA_4', title: 'Amnesia Ibiza — Terrace Sunrise' },
+      { id: 'xkI3uFYwZhs', title: 'Amnesia Ibiza — Closing Festival 2024' },
+      { id: 'bMoU9BjpKvM', title: 'Mar-T Live at Pyramid Opening Party — Amnesia 2024' },
     ],
     faqs: [
       { question: 'What time does Amnesia open?', answer: 'Doors open around midnight, with the party running until 06:00 or later.' },
@@ -138,8 +138,8 @@ export const clubs: Club[] = [
     tmVenueId: 'KovZpZAFJa5E',
     pexelsQuery: 'Ibiza underground techno minimal dark club',
     youtubeVideos: [
-      { id: 'uoKFkOYWBMs', title: 'DC10 Ibiza — Circoloco Opening Party 2024' },
-      { id: 'J3bBM4LNlL4', title: 'DC10 Ibiza — Best Moments' },
+      { id: 'D9oSAUCboOY', title: 'Circoloco at DC10 Ibiza — 25 Years 2024' },
+      { id: '832J_H-kC2g', title: 'DC10 Ibiza — Closing Circoloco 2024' },
     ],
     faqs: [
       { question: 'What is Circoloco?', answer: 'Circoloco is DC10\'s legendary Monday party, running since 1999. It\'s one of the most famous underground events in the world.' },
