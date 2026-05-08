@@ -17,6 +17,10 @@ export interface Club {
   /** Ticketmaster venue ID for Discovery Feed matching */
   tmVenueId?: string;
   image?: string;
+  /** Pexels search query for build-time photo gallery */
+  pexelsQuery?: string;
+  /** YouTube video IDs for aftermovies / official videos */
+  youtubeVideos?: { id: string; title: string }[];
   faqs: { question: string; answer: string }[];
 }
 
@@ -35,6 +39,11 @@ export const clubs: Club[] = [
     clubticketsUrl: 'https://www.clubtickets.com/hi-ibiza', // P2 complement
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa',
     tmVenueId: 'KovZpZAFJa6E',
+    pexelsQuery: 'Ibiza nightclub electronic music',
+    youtubeVideos: [
+      { id: 'P4zCWMSGQVs', title: 'Hï Ibiza — Season Opening 2024' },
+      { id: 'tQ0tplzKbss', title: 'Hï Ibiza — Official Aftermovie' },
+    ],
     faqs: [
       { question: 'What time does Hï Ibiza open?', answer: 'Doors typically open at 23:00 and the club runs until 06:00.' },
       { question: 'How do I get to Hï Ibiza?', answer: 'Hï Ibiza is located on the main road in Playa d\'en Bossa. Taxis, buses (Discobus), and transfers are all available.' },
@@ -55,6 +64,11 @@ export const clubs: Club[] = [
     clubticketsUrl: 'https://www.clubtickets.com/ushuaia', // P2 complement
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa',
     tmVenueId: 'KovZpZAFJaAE',
+    pexelsQuery: 'Ibiza pool party outdoor festival',
+    youtubeVideos: [
+      { id: 'vYzRPcvmBbU', title: 'Ushuaïa Ibiza — Season Opening 2024' },
+      { id: 'ZIxF9mM7sBM', title: 'Ushuaïa Ibiza — Best Moments' },
+    ],
     faqs: [
       { question: 'Is Ushuaïa a daytime or nighttime club?', answer: 'Primarily daytime/early evening. Events usually run from 16:00 to midnight.' },
       { question: 'Can I swim at Ushuaïa?', answer: 'Yes, there\'s a pool in the main area. Many people come in swimwear.' },
@@ -74,6 +88,11 @@ export const clubs: Club[] = [
     ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Pacha+Ibiza',
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=Ibiza+Town',
     tmVenueId: 'KovZpZAFJa7E',
+    pexelsQuery: 'Ibiza nightclub glamour party luxury',
+    youtubeVideos: [
+      { id: 'l2LNe6Zr2bk', title: 'Pacha Ibiza — Opening Party 2024' },
+      { id: 'pD5yFqyzMDk', title: 'Pacha Ibiza — Official Aftermovie' },
+    ],
     faqs: [
       { question: 'What is Pacha Ibiza known for?', answer: 'Pacha is the oldest and most iconic club in Ibiza, famous for its glamorous atmosphere, cherry logo, and legendary parties since 1973.' },
       { question: 'What should I wear to Pacha?', answer: 'Smart attire is expected. Dress to impress — no beachwear or sportswear.' },
@@ -93,6 +112,11 @@ export const clubs: Club[] = [
     ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Amnesia+Ibiza',
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=San+Rafael+Ibiza',
     tmVenueId: 'KovZpZAFJaEE',
+    pexelsQuery: 'Ibiza techno rave underground club',
+    youtubeVideos: [
+      { id: 'hJ_lq0TQEM4', title: 'Amnesia Ibiza — Season Opening 2024' },
+      { id: 'A9HfbRxpA_4', title: 'Amnesia Ibiza — Terrace Sunrise' },
+    ],
     faqs: [
       { question: 'What time does Amnesia open?', answer: 'Doors open around midnight, with the party running until 06:00 or later.' },
       { question: 'What\'s special about Amnesia\'s terrace?', answer: 'The famous terrace has a retractable roof and is known for sunrise moments — one of Ibiza\'s most magical clubbing experiences.' },
@@ -112,6 +136,11 @@ export const clubs: Club[] = [
     ticketmasterUrl: 'https://www.ticketmaster.es/search?q=DC10+Ibiza',
     bookingUrl: 'https://www.booking.com/searchresults.html?ss=Ibiza+Airport+Area',
     tmVenueId: 'KovZpZAFJa5E',
+    pexelsQuery: 'Ibiza underground techno minimal dark club',
+    youtubeVideos: [
+      { id: 'uoKFkOYWBMs', title: 'DC10 Ibiza — Circoloco Opening Party 2024' },
+      { id: 'J3bBM4LNlL4', title: 'DC10 Ibiza — Best Moments' },
+    ],
     faqs: [
       { question: 'What is Circoloco?', answer: 'Circoloco is DC10\'s legendary Monday party, running since 1999. It\'s one of the most famous underground events in the world.' },
       { question: 'Is DC10 hard to get into?', answer: 'It can be. Buy tickets in advance for popular nights, and expect queues.' },

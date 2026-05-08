@@ -1,0 +1,67 @@
+---
+/**
+ * YouTubeEmbed — lazy-loads a YouTube video with a custom thumbnail placeholder.
+ * Clicking the thumbnail swaps it for the actual iframe (no JS loaded until interaction).
+ */
+
+interface Props {
+  videoId: string;
+  title: string;
+  /** Optional thumbnail quality: default | mqdefault | hqdefault | sddefault | maxresdefault */
+  thumbQuality?: 'default' | 'mqdefault' | 'hqdefault' | 'sddefault' | 'maxresdefault';
+}
+
+const { videoId, title, thumbQuality = 'hqdefault' } = Astro.props;
+const thumbUrl = `https://i.ytimg.com/vi/${videoId}/${thumbQuality}.jpg`;
+const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+---
+
+<div
+  class="yt-embed relative overflow-hidden rounded-xl aspect-video cursor-pointer bg-gray-900 group"
+  data-video-id={videoId}
+  data-embed-url={embedUrl}
+  role="button"
+  tabindex="0"
+  aria-label={`Play ${title}`}
+>
+  <!-- Thumbnail -->
+  <img
+    src={thumbUrl}
+    alt={title}
+    loading="lazy"
+    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+  />
+  <!-- Gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+  <!-- Play button -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-lg group-hover:bg-red-500 transition-colors">
+      <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </div>
+  <!-- Title label -->
+  <div class="absolute bottom-0 left-0 right-0 p-4">
+    <p class="text-white text-sm font-medium line-clamp-2">{title}</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.yt-embed').forEach((el) => {
+    const activate = () => {
+      const embedUrl = el.dataset.embedUrl;
+      if (!embedUrl) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      iframe.title = el.getAttribute('aria-label') || 'YouTube video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'absolute inset-0 w-full h-full rounded-xl';
+      el.innerHTML = '';
+      el.appendChild(iframe);
+    };
+    el.addEventListener('click', activate);
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') activate(); });
+  });
+</script>
