@@ -6,7 +6,7 @@ interface Props extends SEOProps {}
 const { title, description, canonical, ogImage, type = 'website', noindex = false } = Astro.props;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.ibizacoolparty.com';
 const canonicalUrl = canonical ? `${siteUrl}${canonical}` : Astro.url.href;
-const image = ogImage ?? `${siteUrl}/og-default.jpg`;
+const image = ogImage ? (ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`) : `${siteUrl}/og-default.jpg`;
 ---
 
 <meta charset="utf-8" />
@@ -26,13 +26,19 @@ const image = ogImage ?? `${siteUrl}/og-default.jpg`;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
 <meta property="og:site_name" content="Ibiza Cool Party" />
+<meta property="og:locale" content="en_GB" />
 
-<!-- Twitter -->
+<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@ibizacoolparty" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={title} />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
