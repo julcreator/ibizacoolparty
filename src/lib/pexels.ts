@@ -1,48 +1,47 @@
-/**
- * Pexels API client — build-time only (no runtime JS).
- * Uses PEXELS_API_KEY env var. Returns empty array gracefully if key is absent.
- */
+// ---------------------------------------------------------------------------
+// Pexels API client — build-time only (called from getStaticPaths)
+// Requires env var: PEXELS_API_KEY
+// Docs: https://www.pexels.com/api/documentation/
+// ---------------------------------------------------------------------------
 
 export interface PexelsPhoto {
   id: number;
-  url: string;
-  photographer: string;
-  photographerUrl: string;
+  width: number;
+  height: number;
+  alt: string;
   src: {
     original: string;
     large2x: string;
     large: string;
     medium: string;
     small: string;
+    portrait: string;
+    landscape: string;
+    tiny: string;
   };
-  alt: string;
+  photographer: string;
+  photographerUrl: string;
 }
 
 interface PexelsSearchResponse {
-  photos: Array<{
-    id: number;
-    url: string;
-    photographer: string;
-    photographer_url: string;
-    src: {
-      original: string;
-      large2x: string;
-      large: string;
-      medium: string;
-      small: string;
-    };
-    alt: string;
-  }>;
+  photos: PexelsPhoto[];
   total_results: number;
+  page: number;
+  per_page: number;
 }
 
+/**
+ * Fetches photos from Pexels at build time.
+ * Returns an empty array (gracefully) if PEXELS_API_KEY is not set.
+ */
 export async function fetchClubPhotos(
   query: string,
   perPage = 6
 ): Promise<PexelsPhoto[]> {
   const apiKey = import.meta.env.PEXELS_API_KEY;
+
   if (!apiKey) {
-    // Graceful fallback: no photos but no build error
+    console.warn('[pexels] PEXELS_API_KEY not set — skipping photo fetch for:', query);
     return [];
   }
 
@@ -53,30 +52,21 @@ export async function fetchClubPhotos(
       orientation: 'landscape',
     });
 
-    const res = await fetch(
-      `https://api.pexels.com/v1/search?${params.toString()}`,
-      {
-        headers: { Authorization: apiKey },
-      }
-    );
+    const res = await fetch(`https://api.pexels.com/v1/search?${params}`, {
+      headers: {
+        Authorization: apiKey,
+      },
+    });
 
     if (!res.ok) {
-      console.warn(`[pexels] Failed to fetch photos for "${query}": ${res.status}`);
+      console.error(`[pexels] API error ${res.status} for query "${query}"`);
       return [];
     }
 
     const data: PexelsSearchResponse = await res.json();
-
-    return data.photos.map((p) => ({
-      id: p.id,
-      url: p.url,
-      photographer: p.photographer,
-      photographerUrl: p.photographer_url,
-      src: p.src,
-      alt: p.alt || query,
-    }));
+    return data.photos ?? [];
   } catch (err) {
-    console.warn(`[pexels] Network error for "${query}":`, err);
+    console.error('[pexels] Fetch failed:', err);
     return [];
   }
 }
