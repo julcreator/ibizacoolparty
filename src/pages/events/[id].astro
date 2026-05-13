@@ -10,7 +10,7 @@ import {
   buildEventSlug,
   type TmEvent,
 } from '@/lib/ticketmaster';
-import { buildTicketmasterUrl, hasClubticketsP2, buildClubticketsUrl } from '@/lib/affiliates';
+import { hasClubticketsP2, buildClubticketsUrl } from '@/lib/affiliates';
 import {
   generateBreadcrumbSchema,
   generateEventSchema,
@@ -45,9 +45,6 @@ const dateStr = formatEventDate(event.dates.start.localDate, event.dates.start.l
 const statusCode = event.dates.status?.code;
 const statusLabel = getStatusLabel(statusCode);
 
-// Affiliate URL (Ticketmaster via Impact — P1)
-const tmAffUrl = buildTicketmasterUrl(event.url);
-
 // Detect if this venue maps to a club with Clubtickets P2
 const clubSlug = venue ? getClubSlugForVenue(venue.id) : undefined;
 const clubticketsUrl = clubSlug && hasClubticketsP2(clubSlug)
@@ -57,7 +54,7 @@ const clubticketsUrl = clubSlug && hasClubticketsP2(clubSlug)
 // SEO
 const seo = {
   title: `${event.name} – Tickets | Ibiza Cool Party`,
-  description: `Buy official tickets for ${event.name} at ${venue?.name ?? 'Ibiza'}. ${dateStr}. ${price !== 'Check site' ? `Tickets from ${price}.` : ''} Secure booking via Ticketmaster.`,
+  description: `Buy official tickets for ${event.name} at ${venue?.name ?? 'Ibiza'}. ${dateStr}. ${price !== 'Check site' ? `Tickets from ${price}.` : ''} Find the best deals and secure your spot.`,
   ogImage: image?.url,
   type: 'article' as const,
 };
@@ -71,7 +68,7 @@ const eventSchema = generateEventSchema({
   imageUrl: image?.url,
   locationName: venue?.name ?? 'Ibiza',
   locationAddress: venue?.address?.line1,
-  ticketUrl: tmAffUrl,
+  ticketUrl: event.url,
   minPrice: priceRange?.min,
   maxPrice: priceRange?.max,
   currency: priceRange?.currency,
@@ -164,24 +161,16 @@ const schema = [
       </section>
     )}
 
-    <!-- CTA: Ticketmaster P1 -->
+    <!-- CTA: Tickets -->
     <section class="card p-8 mb-8 bg-gradient-to-r from-purple-electric/10 to-neon-blue/10 text-center">
       <h2 class="font-display text-2xl font-bold text-white mb-2">Get Official Tickets</h2>
       <p class="text-gray-300 text-sm mb-6">
-        Secure booking via Ticketmaster · Spain allocation market · 30-day cookie
+        Secure booking via official platforms
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <AffiliateButton href={tmAffUrl}>
+        <AffiliateButton href={event.url}>
           Buy tickets on Ticketmaster
         </AffiliateButton>
-        {venue && (
-          <AffiliateButton
-            href={`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(venue.city?.name ?? 'Ibiza')}&aid=${import.meta.env.BOOKING_AID ?? '0000000'}`}
-            variant="secondary"
-          >
-            Hotels nearby
-          </AffiliateButton>
-        )}
       </div>
     </section>
 

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import AffiliateButton from '@/components/AffiliateButton.astro';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 
 const seo = {
@@ -18,17 +17,14 @@ const zones = [
   {
     name: 'Playa d\'en Bossa',
     description: 'Home to Ushuaïa and Hï Ibiza. The epicenter of Ibiza partying — walk to the biggest clubs.',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa%2C+Ibiza',
   },
   {
     name: 'Ibiza Town (Eivissa)',
     description: 'Close to Pacha and the vibrant port. Great restaurants, bars, and nightlife variety.',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=Ibiza+Town',
   },
   {
     name: 'San Antonio',
     description: 'Famous sunset strip and lively bar scene. Budget-friendly with great pre-party vibes.',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=San+Antonio%2C+Ibiza',
   },
 ];
 ---
@@ -45,11 +41,6 @@ const zones = [
         <div class="card p-6 sm:p-8">
           <h2 class="font-display text-xl font-bold text-white">{zone.name}</h2>
           <p class="mt-2 text-gray-300">{zone.description}</p>
-          <div class="mt-4">
-            <AffiliateButton href={zone.bookingUrl}>
-              See hotels in {zone.name}
-            </AffiliateButton>
-          </div>
         </div>
       ))}
     </div>
