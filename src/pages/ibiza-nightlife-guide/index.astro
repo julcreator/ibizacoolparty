@@ -1,0 +1,428 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { generateBreadcrumbSchema, generateFAQSchema } from '@/lib/seo';
+import { buildTicketmasterUrl, buildBookingUrl, buildGygUrl, buildWelcomePickupsUrl } from '@/lib/affiliates';
+
+const seo = {
+  title: 'Ibiza Nightlife Guide 2025 — Best Clubs, Parties & Tips | Ibiza Cool Party',
+  description: 'Complete Ibiza nightlife guide for 2025. Best clubs, how to get tickets, what to wear, how to get around, best areas to stay and insider tips from locals.',
+  canonical: '/ibiza-nightlife-guide/',
+  type: 'article' as const,
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Ibiza Nightlife Guide', url: '/ibiza-nightlife-guide/' },
+];
+
+const faqs = [
+  {
+    question: 'When is the best time to visit Ibiza for nightlife?',
+    answer: 'The peak season runs from late June to mid-September, with the biggest parties in July and August. Opening parties in late May/early June and closing parties in early October are also iconic — less crowded and often better value.',
+  },
+  {
+    question: 'How much does a night out in Ibiza cost?',
+    answer: 'Entry to major clubs costs between €25–€100 depending on the night and DJ. Drinks inside clubs are €10–€20 each. Budget at least €150–€200 for a full night out including entry, drinks and transport.',
+  },
+  {
+    question: 'Do I need to book Ibiza club tickets in advance?',
+    answer: 'Yes, absolutely. The most popular nights sell out weeks in advance, especially for headline DJs. Advance tickets are also 20–30% cheaper than door price. Buy through Ticketmaster for official allocation.',
+  },
+  {
+    question: 'What is the best area to stay for Ibiza nightlife?',
+    answer: 'Playa d\'en Bossa is closest to Hï Ibiza and Ushuaïa. Ibiza Town (Eivissa) is walkable to Pacha and has great pre-party restaurants and bars. San Antonio is best for sunsets and budget options.',
+  },
+  {
+    question: 'What should I wear to Ibiza clubs?',
+    answer: 'Most clubs are smart-casual. Pacha is the most glamorous — dress to impress. DC10 is underground and casual. Ushuaïa daytime events allow swimwear. Avoid football shirts and flip-flops at all major clubs.',
+  },
+  {
+    question: 'How do I get between clubs in Ibiza?',
+    answer: 'The Discobus runs nightly routes between the main clubs and resort areas from around midnight to 6am. Taxis are widely available but get expensive late at night. Pre-booked transfers from the airport are the most reliable option.',
+  },
+  {
+    question: 'Are boat parties worth it in Ibiza?',
+    answer: 'Absolutely — they are one of the most unique experiences in Ibiza. The combination of top DJs, open sea, and sunset creates something you can\'t get anywhere else. Book in advance as they sell out fast.',
+  },
+  {
+    question: 'Which Ibiza club has the best sound system?',
+    answer: 'Hï Ibiza and Amnesia are widely considered to have the best sound systems on the island. DC10 is revered for its raw, powerful sound in a warehouse-style setting.',
+  },
+];
+
+const tmTicketsUrl = buildTicketmasterUrl('https://www.ticketmaster.es/search?q=Ibiza');
+const bookingUrl = buildBookingUrl('/searchresults.html?ss=Ibiza+Town&checkin_year=2025&checkin_month=7&checkout_year=2025&checkout_month=7');
+const gygUrl = buildGygUrl('/s/?q=ibiza+nightlife');
+const transferUrl = buildWelcomePickupsUrl('/ibiza-airport/');
+
+const schema = [
+  generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com'),
+  generateFAQSchema(faqs),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Ibiza Nightlife Guide 2025 — Best Clubs, Parties & Tips',
+    description: 'Complete Ibiza nightlife guide for 2025.',
+    author: { '@type': 'Organization', name: 'Ibiza Cool Party' },
+    publisher: { '@type': 'Organization', name: 'Ibiza Cool Party', logo: { '@type': 'ImageObject', url: 'https://www.ibizacoolparty.com/logo.png' } },
+    url: 'https://www.ibizacoolparty.com/ibiza-nightlife-guide/',
+    datePublished: '2025-01-01',
+    dateModified: '2025-05-01',
+  },
+];
+
+const clubs = [
+  { name: 'Hï Ibiza', slug: 'hi-ibiza', genre: 'Tech House / Techno', area: 'Playa d\'en Bossa', vibe: 'Cutting-edge production, two rooms, world-class DJs every night.' },
+  { name: 'Ushuaïa', slug: 'ushuaia', genre: 'EDM / House', area: 'Playa d\'en Bossa', vibe: 'Open-air daytime and evening events with stunning stage shows.' },
+  { name: 'Pacha', slug: 'pacha', genre: 'House / Deep House', area: 'Ibiza Town', vibe: 'The most iconic club in the world. Glamorous, historic, unmissable.' },
+  { name: 'Amnesia', slug: 'amnesia', genre: 'Techno / Trance', area: 'San Rafael', vibe: 'Legendary main room and terrace. Sunrise on the terrace is a bucket-list moment.' },
+  { name: 'DC10', slug: 'dc10', genre: 'Techno / Minimal', area: 'Near Airport', vibe: 'Underground icon. Circoloco on Mondays is the most famous underground party in the world.' },
+];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-400 mb-6">
+      <a href="/" class="hover:text-white">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-white">Ibiza Nightlife Guide</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="mb-12">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-3 py-1 rounded-full bg-purple-electric/20 text-purple-electric uppercase tracking-wider">Guide</span>
+        <span class="text-xs px-3 py-1 rounded-full bg-neon-blue/20 text-neon-blue uppercase tracking-wider">2025</span>
+      </div>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
+        Ibiza Nightlife Guide 2025
+      </h1>
+      <p class="mt-4 text-xl text-gray-300 leading-relaxed">
+        Everything you need to know to have the best nights of your life in Ibiza — from choosing the right clubs to booking tickets, getting around, and insider tips that most tourists never discover.
+      </p>
+    </header>
+
+    <!-- Table of contents -->
+    <nav class="card p-6 mb-12">
+      <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Contents</h2>
+      <ol class="space-y-2 text-sm">
+        <li><a href="#when-to-go" class="text-neon-blue hover:text-white transition-colors">1. When to go — season and best months</a></li>
+        <li><a href="#best-clubs" class="text-neon-blue hover:text-white transition-colors">2. The best clubs in Ibiza</a></li>
+        <li><a href="#boat-parties" class="text-neon-blue hover:text-white transition-colors">3. Boat parties — a unique Ibiza experience</a></li>
+        <li><a href="#tickets" class="text-neon-blue hover:text-white transition-colors">4. How to get tickets</a></li>
+        <li><a href="#where-to-stay" class="text-neon-blue hover:text-white transition-colors">5. Best areas to stay</a></li>
+        <li><a href="#getting-around" class="text-neon-blue hover:text-white transition-colors">6. Getting around at night</a></li>
+        <li><a href="#what-to-wear" class="text-neon-blue hover:text-white transition-colors">7. What to wear</a></li>
+        <li><a href="#budget" class="text-neon-blue hover:text-white transition-colors">8. Realistic budget guide</a></li>
+        <li><a href="#insider-tips" class="text-neon-blue hover:text-white transition-colors">9. Insider tips</a></li>
+        <li><a href="#faq" class="text-neon-blue hover:text-white transition-colors">10. FAQ</a></li>
+      </ol>
+    </nav>
+
+    <!-- Section 1: When to go -->
+    <section id="when-to-go" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">1. When to go</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Ibiza's club season runs from <strong class="text-white">late May to early October</strong>. Each phase of the season has its own character:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">Late May – June</h3>
+          <p class="text-sm text-gray-400">Opening parties. Quieter island, cooler weather, iconic events at every club. Best value for money.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">July – August</h3>
+          <p class="text-sm text-gray-400">Peak season. Biggest DJs, best parties, hottest weather. Also most expensive and most crowded. Book everything months in advance.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">September</h3>
+          <p class="text-sm text-gray-400">Sea still warm, crowds thinning, prices dropping. One of the best months — great parties with fewer tourists.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">Early October</h3>
+          <p class="text-sm text-gray-400">Closing parties. Emotional, legendary events as clubs say goodbye for the season. A bucket-list experience.</p>
+        </div>
+      </div>
+      <p class="text-gray-400 text-sm">
+        <strong class="text-white">Our recommendation:</strong> For the best balance of parties, prices and atmosphere, go in <strong class="text-white">late June or the first two weeks of September</strong>.
+      </p>
+    </section>
+
+    <!-- Section 2: Best clubs -->
+    <section id="best-clubs" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">2. The best clubs in Ibiza</h2>
+      <p class="text-gray-300 leading-relaxed mb-6">
+        Ibiza has five world-class super-clubs that define the island's nightlife. Each has a completely different character — here's what you need to know:
+      </p>
+      <div class="space-y-4 mb-8">
+        {clubs.map((club) => (
+          <a href={`/clubs/${club.slug}/`} class="card p-5 flex items-start gap-4 group hover:border-purple-electric/50 transition-colors block">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-1">
+                <h3 class="font-bold text-white group-hover:text-purple-electric transition-colors">{club.name}</h3>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400">{club.genre}</span>
+                <span class="text-xs text-gray-500">{club.area}</span>
+              </div>
+              <p class="text-sm text-gray-400">{club.vibe}</p>
+            </div>
+            <span class="text-gray-600 group-hover:text-white transition-colors mt-1">→</span>
+          </a>
+        ))}
+      </div>
+      <div class="card p-6 text-center bg-gradient-to-r from-purple-electric/10 to-neon-blue/10">
+        <p class="text-gray-300 text-sm mb-4">Get official tickets for all Ibiza clubs</p>
+        <a href={tmTicketsUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-primary">
+          Browse Ibiza Tickets on Ticketmaster
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 3: Boat parties -->
+    <section id="boat-parties" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">3. Boat parties</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Boat parties are one of Ibiza's most unique experiences. Imagine dancing to world-class DJs on a yacht or catamaran as the sun sets over the Mediterranean. The combination of music, sea air, and epic views creates something you simply cannot replicate in a nightclub.
+      </p>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        The most famous boat party operators include <strong class="text-white">Ocean Beat</strong>, <strong class="text-white">Ibiza Rocks</strong>, and events organised by the clubs themselves. Boats typically depart from Ibiza Town or San Antonio harbour in the late afternoon and return after sunset.
+      </p>
+      <p class="text-gray-400 text-sm mb-6">
+        Tickets sell out fast, especially in July and August. Book at least 2–3 weeks in advance for peak season.
+      </p>
+      <a href="/boat-parties/" class="btn-primary inline-block">See all Ibiza boat parties →</a>
+    </section>
+
+    <!-- Section 4: Tickets -->
+    <section id="tickets" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">4. How to get tickets</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Always buy tickets in advance. Door prices at Ibiza clubs are consistently 20–40% more expensive than advance prices, and many popular nights sell out completely.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="card p-5 border-purple-electric/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-electric/20 text-purple-electric">P1</span>
+            <h3 class="font-semibold text-white">Ticketmaster</h3>
+          </div>
+          <p class="text-sm text-gray-400">Official ticket partner for most major Ibiza clubs. 100% secure, instant confirmation, mobile tickets.</p>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-neon-blue/20 text-neon-blue">TIP</span>
+            <h3 class="font-semibold text-white">Early bird tickets</h3>
+          </div>
+          <p class="text-sm text-gray-400">Most clubs release early bird allocations months before the season. These are the cheapest tickets available.</p>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-coral/20 text-coral">AVOID</span>
+            <h3 class="font-semibold text-white">Street touts</h3>
+          </div>
+          <p class="text-sm text-gray-400">Never buy tickets from people on the street or unofficial resellers. Fake tickets are common and you won't get in.</p>
+        </div>
+        <div class="card p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-green-500/20 text-green-400">HACK</span>
+            <h3 class="font-semibold text-white">Guest list</h3>
+          </div>
+          <p class="text-sm text-gray-400">Many clubs have a free or discounted guest list if you arrive before midnight. Ask your hotel or a local promoter.</p>
+        </div>
+      </div>
+      <a href={tmTicketsUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-primary inline-block">
+        Buy Official Tickets on Ticketmaster
+      </a>
+    </section>
+
+    <!-- Section 5: Where to stay -->
+    <section id="where-to-stay" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">5. Best areas to stay</h2>
+      <p class="text-gray-300 leading-relaxed mb-6">
+        Where you stay in Ibiza dramatically affects your nightlife experience. Here are the main areas:
+      </p>
+      <div class="space-y-4 mb-8">
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">Playa d'en Bossa <span class="text-xs font-normal text-purple-electric ml-2">Best for club-goers</span></h3>
+          <p class="text-sm text-gray-400">Home to Hï Ibiza and Ushuaïa — you can literally walk to both clubs. The strip has hotels at every price point and a great pre-party atmosphere. The best base if nightlife is your main priority.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">Ibiza Town (Eivissa) <span class="text-xs font-normal text-neon-blue ml-2">Best all-rounder</span></h3>
+          <p class="text-sm text-gray-400">Walking distance to Pacha and the port, amazing restaurants, great pre-party bars in the marina. Staying here gives you the most flexibility. The Old Town (Dalt Vila) is a UNESCO World Heritage Site worth exploring.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-1">San Antonio <span class="text-xs font-normal text-coral ml-2">Best for budget</span></h3>
+          <p class="text-sm text-gray-400">Cheapest accommodation, famous Sunset Strip, great for younger travellers. Amnesia and DC10 are accessible by Discobus. The sunsets from the Sunset Strip are genuinely spectacular.</p>
+        </div>
+      </div>
+      <a href={bookingUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-primary inline-block">
+        Find Hotels in Ibiza on Booking.com
+      </a>
+    </section>
+
+    <!-- Section 6: Getting around -->
+    <section id="getting-around" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">6. Getting around at night</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Ibiza is a small island but distances between clubs can catch people out. Here are your main options:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-2">🚌 Discobus</h3>
+          <p class="text-sm text-gray-400">Night bus service running hourly routes between all major clubs and resort areas. €3–5 per journey. Runs midnight to 6am in high season.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-2">🚕 Taxi</h3>
+          <p class="text-sm text-gray-400">Available everywhere but expensive late at night. Cross-island trips can be €25–40. Book via the official Ibiza taxi app to avoid overcharging.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="font-semibold text-white mb-2">✈️ Airport Transfer</h3>
+          <p class="text-sm text-gray-400">Pre-book your arrival and departure transfers. Welcome Pickups offers fixed-price transfers with professional drivers — no surprises.</p>
+        </div>
+      </div>
+      <a href={transferUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary inline-block">
+        Book Airport Transfer with Welcome Pickups
+      </a>
+    </section>
+
+    <!-- Section 7: What to wear -->
+    <section id="what-to-wear" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">7. What to wear</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Ibiza has a strong fashion culture — what you wear matters. Here's a quick breakdown by club:
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="text-left py-3 pr-4 text-gray-400 font-medium">Club</th>
+              <th class="text-left py-3 pr-4 text-gray-400 font-medium">Dress code</th>
+              <th class="text-left py-3 text-gray-400 font-medium">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <tr>
+              <td class="py-3 pr-4 text-white font-medium">Pacha</td>
+              <td class="py-3 pr-4 text-gray-300">Smart / Glamorous</td>
+              <td class="py-3 text-gray-400">Dress to impress. This is the most image-conscious club on the island.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-white font-medium">Hï Ibiza</td>
+              <td class="py-3 pr-4 text-gray-300">Smart casual</td>
+              <td class="py-3 text-gray-400">No sportswear or flip-flops. Dark clothing works well.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-white font-medium">Ushuaïa</td>
+              <td class="py-3 pr-4 text-gray-300">Casual / Swimwear</td>
+              <td class="py-3 text-gray-400">Daytime events allow bikinis and shorts. Evening events are slightly smarter.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-white font-medium">Amnesia</td>
+              <td class="py-3 pr-4 text-gray-300">Casual</td>
+              <td class="py-3 text-gray-400">Comfortable footwear essential — you'll be dancing for hours.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-white font-medium">DC10</td>
+              <td class="py-3 pr-4 text-gray-300">Very casual</td>
+              <td class="py-3 text-gray-400">Underground crowd. Fashion is about individuality, not labels.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 8: Budget -->
+    <section id="budget" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">8. Realistic budget guide</h2>
+      <p class="text-gray-300 leading-relaxed mb-6">
+        Ibiza has a reputation for being expensive — and it is. But knowing where to spend and where to save makes a huge difference.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="card p-5 border-green-500/30">
+          <h3 class="font-semibold text-green-400 mb-3">Budget — €100/night</h3>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li>→ Mid-week nights (Tue/Wed cheaper)</li>
+            <li>→ Guest list entry (free or discounted)</li>
+            <li>→ Pre-drink at apartment before</li>
+            <li>→ Discobus for transport</li>
+            <li>→ 2–3 drinks inside club</li>
+          </ul>
+        </div>
+        <div class="card p-5 border-neon-blue/30">
+          <h3 class="font-semibold text-neon-blue mb-3">Mid — €200/night</h3>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li>→ Advance ticket €40–60</li>
+            <li>→ Pre-party at bar €30</li>
+            <li>→ 4–5 drinks inside €60–80</li>
+            <li>→ Taxi home €20–30</li>
+            <li>→ Late night food €15</li>
+          </ul>
+        </div>
+        <div class="card p-5 border-coral/30">
+          <h3 class="font-semibold text-coral mb-3">Premium — €400+/night</h3>
+          <ul class="text-sm text-gray-400 space-y-2">
+            <li>→ VIP table booking</li>
+            <li>→ Bottle service</li>
+            <li>→ Private transfer</li>
+            <li>→ Best nights / DJs</li>
+            <li>→ Weekend premium</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-sm text-gray-400">
+        <strong class="text-white">Money-saving tip:</strong> Buy alcohol at a supermarket before heading out. Pre-drinking at the hotel or apartment is standard practice in Ibiza and can save €50–80 per night.
+      </p>
+    </section>
+
+    <!-- Section 9: Insider tips -->
+    <section id="insider-tips" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">9. Insider tips</h2>
+      <div class="space-y-3">
+        {[
+          { tip: 'Arrive early to avoid queues', detail: 'Most clubs are quiet until 2am but DJs play their best sets between 3–5am. Arrive at 1:30am to skip the queue, grab a drink, and be ready for the peak.' },
+          { tip: 'Check the weekly schedule', detail: 'Each club has specific nights and residencies. Make sure the DJ you want to see is actually playing the night you\'re there — lineups change.' },
+          { tip: 'Download the Discobus app', detail: 'The official Discobus app shows real-time routes and stop locations. Much easier than flagging one down on the street.' },
+          { tip: 'Book your airport transfer in advance', detail: 'Ibiza airport at 3am after a season-closing party is chaotic. A pre-booked transfer means a driver waiting for you, fixed price, no stress.' },
+          { tip: 'Wear earplugs', detail: 'Ibiza clubs have some of the loudest sound systems in the world. Good earplugs (musicians\' earplugs) protect your hearing and actually improve sound quality.' },
+          { tip: 'Stay hydrated', detail: 'Dancing in the heat takes a real toll. Drink water between alcoholic drinks and eat before you go out. Ibiza has a high rate of people needing medical attention due to dehydration.' },
+        ].map((item) => (
+          <div class="card p-5 flex gap-4">
+            <span class="text-purple-electric text-xl mt-0.5">→</span>
+            <div>
+              <h3 class="font-semibold text-white mb-1">{item.tip}</h3>
+              <p class="text-sm text-gray-400">{item.detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 10: FAQ -->
+    <section id="faq" class="mb-14 scroll-mt-20">
+      <h2 class="font-display text-3xl font-bold text-white mb-6">10. Frequently asked questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="card p-5 group">
+            <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">
+              {faq.question}
+              <span class="text-gray-400 group-open:rotate-180 transition-transform ml-4 flex-shrink-0">▼</span>
+            </summary>
+            <p class="mt-3 text-gray-300 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="card p-8 text-center bg-gradient-to-r from-purple-electric/10 to-neon-blue/10">
+      <h2 class="font-display text-2xl font-bold text-white mb-2">Ready to plan your Ibiza nights?</h2>
+      <p class="text-gray-400 text-sm mb-6">Get official tickets, find hotels near the clubs, and book your airport transfer.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href={tmTicketsUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-primary">Buy Tickets on Ticketmaster</a>
+        <a href={bookingUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary">Find Hotels on Booking.com</a>
+        <a href={gygUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary">Experiences on GetYourGuide</a>
+      </div>
+    </section>
+
+  </article>
+</BaseLayout>
