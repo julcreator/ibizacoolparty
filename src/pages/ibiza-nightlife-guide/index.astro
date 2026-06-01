@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { generateBreadcrumbSchema, generateFAQSchema } from '@/lib/seo';
-import { buildGygUrl, buildWelcomePickupsUrl } from '@/lib/affiliates';
+import { buildGygUrl, buildWelcomePickupsUrl, buildFeverUrl } from '@/lib/affiliates';
 
 const seo = {
   title: 'Ibiza Nightlife Guide 2025 — Best Clubs, Parties & Tips | Ibiza Cool Party',
@@ -52,6 +52,7 @@ const faqs = [
 
 const gygUrl = buildGygUrl('/s/?q=ibiza+nightlife');
 const transferUrl = buildWelcomePickupsUrl('/ibiza-airport/');
+const feverUrl = buildFeverUrl('https://feverup.com/m/ibiza');
 
 const schema = [
   generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com'),
@@ -231,6 +232,11 @@ const clubs = [
       <a href="/clubs/" class="btn-primary inline-block">
         Browse Official Tickets
       </a>
+      <div class="mt-4">
+        <a href={feverUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary inline-block">
+          Discover Ibiza Events on Fever
+        </a>
+      </div>
     </section>
 
     <!-- Section 5: Where to stay -->
@@ -415,6 +421,7 @@ const clubs = [
       <p class="text-gray-400 text-sm mb-6">Get official tickets, find hotels near the clubs, and book your airport transfer.</p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
         <a href="/clubs/" class="btn-primary">Browse Clubs & Tickets</a>
+        <a href={feverUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary">Ibiza Events on Fever</a>
         <a href={gygUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary">Experiences on GetYourGuide</a>
       </div>
     </section>

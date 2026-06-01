@@ -1,7 +1,6 @@
 // ---------------------------------------------------------------------------
 // Affiliate partner configuration
-// Active: GetYourGuide, Viator, Welcome Pickups
-// Pending: Fever (awaiting affiliate ID)
+// Active: GetYourGuide, Viator, Fever (Impact deep link), Welcome Pickups
 // Removed: Ticketmaster, Booking.com (rejected), Clubtickets (no affiliate program)
 // ---------------------------------------------------------------------------
 
@@ -29,9 +28,8 @@ export interface AffiliateConfig {
     affiliateId: string;
   };
   fever: {
-    baseUrl: string;
-    /** Affiliate ID from Fever affiliate program */
-    affiliateId: string;
+    /** Full Impact tracking URL — this IS the affiliate link */
+    trackingUrl: string;
   };
   welcomepickups: {
     baseUrl: string;
@@ -50,8 +48,8 @@ export const affiliateConfig: AffiliateConfig = {
     affiliateId: import.meta.env.VIATOR_AFFILIATE_ID ?? 'P00301063',
   },
   fever: {
-    baseUrl: 'https://feverup.com',
-    affiliateId: import.meta.env.FEVER_AFFILIATE_ID ?? 'REPLACE_WITH_FEVER_ID',
+    // Impact deep link — tracking ID 5kYY1D, cookie 30 days
+    trackingUrl: import.meta.env.FEVER_TRACKING_URL ?? 'https://fever.pxf.io/5kYY1D',
   },
   welcomepickups: {
     baseUrl: 'https://www.welcomepickups.com',
@@ -78,10 +76,16 @@ export function buildViatorUrl(path: string): string {
   return `${affiliateConfig.viator.baseUrl}${path}${separator}pid=${affiliateConfig.viator.affiliateId}`;
 }
 
-/** Build a Fever affiliate link */
-export function buildFeverUrl(path: string): string {
-  // Fever affiliate format TBD — placeholder
-  return `${affiliateConfig.fever.baseUrl}${path}?ref=${affiliateConfig.fever.affiliateId}`;
+/**
+ * Build a Fever affiliate link via Impact deep link.
+ * - No arguments: returns the base tracking URL (general Ibiza events page)
+ * - With deepLinkUrl: appends a `u` parameter to deep-link into a specific Fever page
+ *   e.g. buildFeverUrl('https://feverup.com/m/ibiza')
+ */
+export function buildFeverUrl(deepLinkUrl?: string): string {
+  const base = affiliateConfig.fever.trackingUrl;
+  if (!deepLinkUrl) return base;
+  return `${base}?u=${encodeURIComponent(deepLinkUrl)}`;
 }
 
 /** Build a Welcome Pickups affiliate link (via Travelpayouts marker) */
