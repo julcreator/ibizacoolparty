@@ -23,6 +23,10 @@ const { seo, schema = [] } = Astro.props;
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
     <slot name="head" />
+    <!-- Impact.com universal impression tracking -->
+    <script type="text/javascript" is:inline>
+      (function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A1937693-6205-4997-a28a-41540cb77dab1.js','script','impactStat',document,window);impactStat('trackImpression');
+    </script>
   </head>
   <body>
     <Header />
