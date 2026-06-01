@@ -1,0 +1,229 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { generateBreadcrumbSchema } from '@/lib/seo';
+import { buildGygUrl, buildViatorUrl, buildFeverUrl } from '@/lib/affiliates';
+
+const seo = {
+  title: 'Ibiza Experiences 2025 — Tours, Events & Activities | Ibiza Cool Party',
+  description: 'The best things to do in Ibiza beyond the clubs. Book boat parties, quad tours, cooking classes, sunset cruises, and live events. Handpicked experiences for every type of traveller.',
+  canonical: '/experiences/',
+  type: 'website' as const,
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Experiences', url: '/experiences/' },
+];
+const schema = [generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com')];
+
+// Affiliate URLs
+const gygBoatParties   = buildGygUrl('/ibiza-l276/boat-parties-tc821/');
+const gygTours         = buildGygUrl('/ibiza-l276/');
+const gygSunset        = buildGygUrl('/ibiza-l276/sunset-cruises-tc48/');
+const viatorBoat       = buildViatorUrl('/tours/Ibiza/Boat-Tours-and-Water-Sports/d4254-g11/');
+const viatorDay        = buildViatorUrl('/tours/Ibiza/Day-Trips/d4254-g4/');
+const viatorAdventure  = buildViatorUrl('/tours/Ibiza/Outdoor-Activities/d4254-g9/');
+const feverIbiza       = buildFeverUrl('https://feverup.com/m/ibiza');
+
+const categories = [
+  {
+    id: 'on-the-water',
+    icon: '⛵',
+    title: 'On the water',
+    subtitle: 'Boat parties, sunset cruises & water sports',
+    description: 'Ibiza from the sea is a completely different experience. Whether it\'s a party boat at sunset or a quiet sailing trip, the Mediterranean is the real star of the island.',
+    items: [
+      {
+        title: 'Boat parties',
+        description: 'Dance on the open sea with top DJs, open bar, and the Ibiza coastline as your backdrop. The quintessential Ibiza experience.',
+        badge: 'Most popular',
+        badgeColor: 'purple-electric',
+        links: [
+          { label: 'Browse on GetYourGuide', href: gygBoatParties, partner: 'gyg' },
+          { label: 'Browse on Viator', href: viatorBoat, partner: 'viator' },
+        ],
+      },
+      {
+        title: 'Sunset cruises',
+        description: 'Watch the famous Ibiza sunset from the water. Most cruises include drinks and light food. Perfect for couples or groups who want a more relaxed vibe.',
+        badge: 'Romantic',
+        badgeColor: 'coral',
+        links: [
+          { label: 'Browse on GetYourGuide', href: gygSunset, partner: 'gyg' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'day-trips',
+    icon: '🌊',
+    title: 'Day trips & island tours',
+    subtitle: 'Formentera, hidden coves & countryside',
+    description: 'Ibiza is more than Playa d\'en Bossa. The north of the island is wild and unspoiled, and the short ferry to Formentera is one of the most stunning day trips in the Mediterranean.',
+    items: [
+      {
+        title: 'Formentera day trip',
+        description: 'Take the ferry to Formentera — arguably the most beautiful beach island in Europe. Crystal clear turquoise water, white sand, no crowds.',
+        badge: 'Must do',
+        badgeColor: 'neon-blue',
+        links: [
+          { label: 'Browse on Viator', href: viatorDay, partner: 'viator' },
+          { label: 'Browse on GetYourGuide', href: gygTours, partner: 'gyg' },
+        ],
+      },
+      {
+        title: 'Ibiza countryside & villages',
+        description: 'Explore the whitewashed villages of the rural interior — Sant Carles, Santa Gertrudis, Sant Joan. Hire a car or join a guided tour to discover the real Ibiza.',
+        badge: 'Hidden gem',
+        badgeColor: 'green-400',
+        links: [
+          { label: 'Browse tours on GetYourGuide', href: gygTours, partner: 'gyg' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'adventure',
+    icon: '🏄',
+    title: 'Adventure & outdoor',
+    subtitle: 'Kayaking, diving, quad bikes & more',
+    description: 'By day, Ibiza is an outdoor playground. The island has some of the best diving in the western Mediterranean, incredible cliff jumping spots, and miles of coastline to explore by kayak.',
+    items: [
+      {
+        title: 'Water sports & diving',
+        description: 'Scuba diving, snorkelling, paddleboarding, jet skiing. The waters around Ibiza are warm, clear, and full of marine life — including the protected Posidonia seagrass meadows.',
+        badge: 'Active',
+        badgeColor: 'neon-blue',
+        links: [
+          { label: 'Browse on Viator', href: viatorAdventure, partner: 'viator' },
+          { label: 'Browse on GetYourGuide', href: gygTours, partner: 'gyg' },
+        ],
+      },
+      {
+        title: 'Quad bike & jeep tours',
+        description: 'Explore the island\'s dirt tracks and hidden beaches on a quad bike or 4x4 jeep tour. One of the best ways to see the parts of Ibiza that tourists never reach.',
+        badge: 'Fun',
+        badgeColor: 'coral',
+        links: [
+          { label: 'Browse on GetYourGuide', href: gygTours, partner: 'gyg' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'events',
+    icon: '🎉',
+    title: 'Events & live experiences',
+    subtitle: 'Beyond the clubs — shows, markets & cultural events',
+    description: 'Fever curates the best live events, pop-ups and unique experiences in Ibiza — from candlelight concerts to immersive art shows and exclusive sunset sessions.',
+    items: [
+      {
+        title: 'Live events & shows on Fever',
+        description: 'Fever aggregates unique experiences you won\'t find through regular channels — themed events, live performances, rooftop sessions, and cultural experiences across the island.',
+        badge: 'Exclusive',
+        badgeColor: 'purple-electric',
+        links: [
+          { label: 'Discover events on Fever', href: feverIbiza, partner: 'fever' },
+        ],
+      },
+    ],
+  },
+];
+
+const partnerColors: Record<string, string> = {
+  gyg: 'text-neon-blue',
+  viator: 'text-coral',
+  fever: 'text-purple-electric',
+};
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-400 mb-6">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-white">Experiences</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="mb-14">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-3 py-1 rounded-full bg-purple-electric/20 text-purple-electric uppercase tracking-wider">Things to do</span>
+        <span class="text-xs px-3 py-1 rounded-full bg-neon-blue/20 text-neon-blue uppercase tracking-wider">Ibiza 2025</span>
+      </div>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
+        Ibiza Experiences
+      </h1>
+      <p class="mt-4 text-xl text-gray-300 leading-relaxed max-w-2xl">
+        The best things to do in Ibiza beyond the clubs. Boat parties, day trips, water sports, and exclusive events — handpicked for every type of traveller.
+      </p>
+    </header>
+
+    <!-- Quick links -->
+    <nav class="card p-5 mb-14 flex flex-wrap gap-3">
+      {categories.map((cat) => (
+        <a href={`#${cat.id}`} class="text-sm text-neon-blue hover:text-white transition-colors">
+          {cat.icon} {cat.title}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Categories -->
+    <div class="space-y-16">
+      {categories.map((cat) => (
+        <section id={cat.id} class="scroll-mt-20">
+          <div class="flex items-start gap-4 mb-6">
+            <span class="text-4xl">{cat.icon}</span>
+            <div>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-white">{cat.title}</h2>
+              <p class="text-gray-400 text-sm mt-1">{cat.subtitle}</p>
+            </div>
+          </div>
+          <p class="text-gray-300 leading-relaxed mb-8">{cat.description}</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {cat.items.map((item) => (
+              <div class="card p-6 flex flex-col gap-4">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <h3 class="font-bold text-white">{item.title}</h3>
+                    <span class={`text-xs px-2 py-0.5 rounded-full bg-white/5 text-${item.badgeColor}`}>
+                      {item.badge}
+                    </span>
+                  </div>
+                  <p class="text-sm text-gray-400 leading-relaxed">{item.description}</p>
+                </div>
+                <div class="flex flex-col gap-2 mt-auto">
+                  {item.links.map((link) => (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="sponsored nofollow noopener"
+                      class={`text-sm font-medium hover:underline flex items-center gap-1 ${partnerColors[link.partner] ?? 'text-white'}`}
+                    >
+                      {link.label} →
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- Final CTA -->
+    <section class="mt-20 card p-8 text-center bg-gradient-to-r from-purple-electric/10 to-neon-blue/10">
+      <h2 class="font-display text-2xl font-bold text-white mb-2">Looking for parties & nightlife?</h2>
+      <p class="text-gray-400 text-sm mb-6">Explore the full guide to Ibiza's clubs, boat parties and weekly events.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/clubs/" class="btn-primary">Browse Ibiza Clubs</a>
+        <a href="/boat-parties/" class="btn-secondary">Boat Parties</a>
+        <a href="/ibiza-nightlife-guide/" class="btn-secondary">Nightlife Guide</a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
