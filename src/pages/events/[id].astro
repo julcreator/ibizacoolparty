@@ -10,7 +10,6 @@ import {
   buildEventSlug,
   type TmEvent,
 } from '@/lib/ticketmaster';
-import { hasClubticketsP2, buildClubticketsUrl } from '@/lib/affiliates';
 import {
   generateBreadcrumbSchema,
   generateEventSchema,
@@ -45,11 +44,8 @@ const dateStr = formatEventDate(event.dates.start.localDate, event.dates.start.l
 const statusCode = event.dates.status?.code;
 const statusLabel = getStatusLabel(statusCode);
 
-// Detect if this venue maps to a club with Clubtickets P2
+// Detect if this venue maps to a known club
 const clubSlug = venue ? getClubSlugForVenue(venue.id) : undefined;
-const clubticketsUrl = clubSlug && hasClubticketsP2(clubSlug)
-  ? buildClubticketsUrl(`/${clubSlug}`)
-  : null;
 
 // SEO
 const seo = {
@@ -169,20 +165,10 @@ const schema = [
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <AffiliateButton href={event.url}>
-          Buy tickets on Ticketmaster
+          Buy tickets on official site
         </AffiliateButton>
       </div>
     </section>
-
-    <!-- Clubtickets P2 (Hi Ibiza + Ushuaïa only) -->
-    {clubticketsUrl && (
-      <section class="card p-6 mb-8 text-center border-dashed">
-        <p class="text-sm text-gray-400 mb-3">Also available on Clubtickets</p>
-        <AffiliateButton href={clubticketsUrl} variant="secondary">
-          Check on Clubtickets
-        </AffiliateButton>
-      </section>
-    )}
 
     <!-- Back link -->
     {clubSlug && (

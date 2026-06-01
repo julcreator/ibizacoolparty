@@ -1,14 +1,14 @@
 // ---------------------------------------------------------------------------
 // Affiliate partner configuration
-// Priority stack: P1 = Ticketmaster, GetYourGuide, Booking.com
-//                 P2 = Clubtickets (Hi Ibiza + Ushuaïa only)
+// Active: GetYourGuide, Viator, Welcome Pickups
+// Pending: Fever (awaiting affiliate ID)
+// Removed: Ticketmaster, Booking.com (rejected), Clubtickets (no affiliate program)
 // ---------------------------------------------------------------------------
 
 export type AffiliatePartner =
-  | 'ticketmaster'
-  | 'clubtickets'
   | 'getyourguide'
-  | 'booking'
+  | 'viator'
+  | 'fever'
   | 'welcomepickups';
 
 export interface AffiliateLink {
@@ -18,27 +18,20 @@ export interface AffiliateLink {
 }
 
 export interface AffiliateConfig {
-  ticketmaster: {
-    /** Impact affiliate tracking parameter — set in env TM_IMPACT_TAG */
-    impactTag: string;
-    /** Base URL for event deeplinks */
-    baseUrl: string;
-  };
-  clubtickets: {
-    baseUrl: string;
-    /** Clubs where Clubtickets is used as P2 complement */
-    supportedSlugs: readonly string[];
-    tag: string;
-  };
   getyourguide: {
     baseUrl: string;
     /** Partner ID from GetYourGuide affiliate program */
     partnerId: string;
   };
-  booking: {
+  viator: {
     baseUrl: string;
-    /** Affiliate ID from Booking.com affiliate program */
-    aid: string;
+    /** Affiliate ID from Viator Partner Program */
+    affiliateId: string;
+  };
+  fever: {
+    baseUrl: string;
+    /** Affiliate ID from Fever affiliate program */
+    affiliateId: string;
   };
   welcomepickups: {
     baseUrl: string;
@@ -48,24 +41,17 @@ export interface AffiliateConfig {
 }
 
 export const affiliateConfig: AffiliateConfig = {
-  ticketmaster: {
-    // Impact tag format: ?impactid=XXXX — replace with actual Impact campaign tag
-    impactTag: import.meta.env.TM_IMPACT_TAG ?? 'REPLACE_WITH_IMPACT_TAG',
-    baseUrl: 'https://www.ticketmaster.es',
-  },
-  clubtickets: {
-    baseUrl: 'https://www.clubtickets.com',
-    // P2: only used for Hi Ibiza and Ushuaïa as complementary option
-    supportedSlugs: ['hi-ibiza', 'ushuaia'] as const,
-    tag: import.meta.env.CLUBTICKETS_TAG ?? 'ibizacoolparty',
-  },
   getyourguide: {
     baseUrl: 'https://www.getyourguide.com',
     partnerId: import.meta.env.GYG_PARTNER_ID ?? 'BCOUV2W',
   },
-  booking: {
-    baseUrl: 'https://www.booking.com',
-    aid: import.meta.env.BOOKING_AID ?? '101745433',
+  viator: {
+    baseUrl: 'https://www.viator.com',
+    affiliateId: import.meta.env.VIATOR_AFFILIATE_ID ?? 'P00301063',
+  },
+  fever: {
+    baseUrl: 'https://feverup.com',
+    affiliateId: import.meta.env.FEVER_AFFILIATE_ID ?? 'REPLACE_WITH_FEVER_ID',
   },
   welcomepickups: {
     baseUrl: 'https://www.welcomepickups.com',
@@ -77,13 +63,6 @@ export const affiliateConfig: AffiliateConfig = {
 // URL builders
 // ---------------------------------------------------------------------------
 
-/** Build a Ticketmaster affiliate deeplink (via Impact) */
-export function buildTicketmasterUrl(eventUrl: string): string {
-  const url = new URL(eventUrl);
-  url.searchParams.set('impactid', affiliateConfig.ticketmaster.impactTag);
-  return url.toString();
-}
-
 /** Build a GetYourGuide affiliate link */
 export function buildGygUrl(path: string): string {
   const base = `${affiliateConfig.getyourguide.baseUrl}${path}`;
@@ -92,20 +71,17 @@ export function buildGygUrl(path: string): string {
   return url.toString();
 }
 
-/** Build a Booking.com affiliate link */
-export function buildBookingUrl(path: string): string {
-  const base = `${affiliateConfig.booking.baseUrl}${path}`;
-  const url = new URL(base);
-  url.searchParams.set('aid', affiliateConfig.booking.aid);
-  return url.toString();
+/** Build a Viator affiliate link */
+export function buildViatorUrl(path: string): string {
+  // Viator uses PID parameter for affiliate tracking
+  const separator = path.includes('?') ? '&' : '?';
+  return `${affiliateConfig.viator.baseUrl}${path}${separator}pid=${affiliateConfig.viator.affiliateId}`;
 }
 
-/** Build a Clubtickets affiliate link (P2, Hi/Ushuaïa only) */
-export function buildClubticketsUrl(path: string): string {
-  const base = `${affiliateConfig.clubtickets.baseUrl}${path}`;
-  const url = new URL(base);
-  url.searchParams.set('aff', affiliateConfig.clubtickets.tag);
-  return url.toString();
+/** Build a Fever affiliate link */
+export function buildFeverUrl(path: string): string {
+  // Fever affiliate format TBD — placeholder
+  return `${affiliateConfig.fever.baseUrl}${path}?ref=${affiliateConfig.fever.affiliateId}`;
 }
 
 /** Build a Welcome Pickups affiliate link (via Travelpayouts marker) */
@@ -114,11 +90,6 @@ export function buildWelcomePickupsUrl(path: string): string {
   const url = new URL(base);
   url.searchParams.set('marker', affiliateConfig.welcomepickups.tpMarker);
   return url.toString();
-}
-
-/** Returns true if the club slug has Clubtickets as P2 complement */
-export function hasClubticketsP2(slug: string): boolean {
-  return (affiliateConfig.clubtickets.supportedSlugs as readonly string[]).includes(slug);
 }
 
 /** HTML attributes for all affiliate links */

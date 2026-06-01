@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PhotoGallery from '@/components/PhotoGallery.astro';
 import YouTubeEmbed from '@/components/YouTubeEmbed.astro';
 import { generateBreadcrumbSchema, generateFAQSchema } from '@/lib/seo';
-import { hasClubticketsP2, buildClubticketsUrl } from '@/lib/affiliates';
+import { buildViatorUrl } from '@/lib/affiliates';
 import { fetchClubPhotos } from '@/lib/pexels';
 import { clubs } from '@/data/clubs';
 
@@ -25,8 +25,6 @@ export async function getStaticPaths() {
 
 const { club, photos } = Astro.props;
 
-const showClubticketsP2 = hasClubticketsP2(club.slug) && !!club.clubticketsUrl;
-
 const seo = {
   title: `${club.name} Tickets, Best Nights & Guide | Ibiza Cool Party`,
   description: `Everything about ${club.name}: best nights, tickets, dress code, how to get there, and hotels nearby in ${club.area}. Your complete guide.`,
@@ -42,6 +40,9 @@ const schema = [
   generateBreadcrumbSchema(breadcrumbs, 'https://www.ibizacoolparty.com'),
   ...(club.faqs.length > 0 ? [generateFAQSchema(club.faqs)] : []),
 ];
+
+// Viator search URL for this club's experiences
+const viatorClubUrl = buildViatorUrl(`/search/${encodeURIComponent(club.name + ' Ibiza')}`);
 ---
 
 <BaseLayout seo={seo} schema={schema}>
@@ -96,23 +97,14 @@ const schema = [
         Secure booking via official platforms
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href={`https://www.clubtickets.com/${club.slug}`} target="_blank" rel="sponsored nofollow noopener" class="btn-primary">
-          Buy tickets on Clubtickets
+        <a href={club.officialUrl} target="_blank" rel="noopener noreferrer" class="btn-primary">
+          Official Website
+        </a>
+        <a href={viatorClubUrl} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary">
+          Experiences on Viator
         </a>
       </div>
     </section>
-
-    <!-- CTA: Clubtickets P2 — Hi Ibiza & Ushuaïa only -->
-    {showClubticketsP2 && (
-      <section class="card p-5 mb-12 text-center border-dashed">
-        <p class="text-sm text-gray-400 mb-3">
-          Also available on official channels
-        </p>
-        <a href={buildClubticketsUrl(`/${club.slug}`)} target="_blank" rel="sponsored nofollow noopener" class="btn-secondary">
-          Check on Clubtickets
-        </a>
-      </section>
-    )}
 
     <!-- YouTube Videos -->
     {club.youtubeVideos && club.youtubeVideos.length > 0 && (

@@ -1,7 +1,6 @@
 ---
 import type { TmEvent } from '@/lib/ticketmaster';
 import { getBestImage, formatPriceRange, formatEventDate, getStatusLabel } from '@/lib/ticketmaster';
-import { buildTicketmasterUrl } from '@/lib/affiliates';
 import { getAffiliateAttrs } from '@/lib/affiliates';
 
 interface Props {
@@ -15,7 +14,6 @@ const price = formatPriceRange(event.priceRanges);
 const dateStr = formatEventDate(event.dates.start.localDate, event.dates.start.localTime);
 const status = event.dates.status?.code;
 const statusLabel = getStatusLabel(status);
-const affiliateUrl = buildTicketmasterUrl(event.url);
 const attrs = getAffiliateAttrs();
 ---
 

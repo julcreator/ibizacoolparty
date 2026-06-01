@@ -8,15 +8,8 @@ export interface Club {
   capacity: string;
   dressCode: string;
   priceRange: string;
-  /** P1: Ticketmaster deeplink (search URL for this venue) */
-  ticketmasterUrl: string;
-  /** P2: Clubtickets URL — only Hi Ibiza and Ushuaïa */
-  clubticketsUrl?: string;
-  /** Booking.com search URL for nearby hotels */
-  bookingUrl: string;
-  /** Ticketmaster venue ID for Discovery Feed matching */
-  tmVenueId?: string;
-  image?: string;
+  /** Official club website URL */
+  officialUrl: string;
   /** Pexels search query for build-time photo gallery */
   pexelsQuery?: string;
   /** YouTube video IDs for aftermovies / official videos */
@@ -35,10 +28,7 @@ export const clubs: Club[] = [
     capacity: '5,000+',
     dressCode: 'Smart casual. No football shirts, no flip-flops.',
     priceRange: '€30–€80',
-    ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Hi+Ibiza',
-    clubticketsUrl: 'https://www.clubtickets.com/hi-ibiza',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa',
-    tmVenueId: 'KovZpZAFJa6E',
+    officialUrl: 'https://www.hiibiza.com',
     pexelsQuery: 'Ibiza nightclub electronic music',
     youtubeVideos: [
       { id: '8keYXGt_HcU', title: 'Hï Ibiza — Opening Party 2024' },
@@ -60,10 +50,7 @@ export const clubs: Club[] = [
     capacity: '5,000+',
     dressCode: 'Swimwear and casual during day events.',
     priceRange: '€40–€100',
-    ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Ushuaia+Ibiza',
-    clubticketsUrl: 'https://www.clubtickets.com/ushuaia',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=Playa+d%27en+Bossa',
-    tmVenueId: 'KovZpZAFJaAE',
+    officialUrl: 'https://www.theushuaiaexperience.com',
     pexelsQuery: 'Ibiza pool party outdoor festival',
     youtubeVideos: [
       { id: 'uDfq8zPUoEk', title: 'Ushuaïa Ibiza — Official Aftermovie 2025' },
@@ -85,9 +72,7 @@ export const clubs: Club[] = [
     capacity: '3,000',
     dressCode: 'Smart. Dress to impress.',
     priceRange: '€30–€70',
-    ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Pacha+Ibiza',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=Ibiza+Town',
-    tmVenueId: 'KovZpZAFJa7E',
+    officialUrl: 'https://www.pacha.com',
     pexelsQuery: 'Ibiza nightclub glamour party luxury',
     youtubeVideos: [
       { id: 'VR5T5lrrZbQ', title: 'CamelPhat at Pacha — Opening Party 2024' },
@@ -109,9 +94,7 @@ export const clubs: Club[] = [
     capacity: '5,000',
     dressCode: 'Casual. Comfortable footwear recommended.',
     priceRange: '€25–€60',
-    ticketmasterUrl: 'https://www.ticketmaster.es/search?q=Amnesia+Ibiza',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=San+Rafael+Ibiza',
-    tmVenueId: 'KovZpZAFJaEE',
+    officialUrl: 'https://www.amnesia.es',
     pexelsQuery: 'Ibiza techno rave underground club',
     youtubeVideos: [
       { id: 'xkI3uFYwZhs', title: 'Amnesia Ibiza — Closing Festival 2024' },
@@ -133,9 +116,7 @@ export const clubs: Club[] = [
     capacity: '1,500',
     dressCode: 'Very casual. Anything goes.',
     priceRange: '€20–€50',
-    ticketmasterUrl: 'https://www.ticketmaster.es/search?q=DC10+Ibiza',
-    bookingUrl: 'https://www.booking.com/searchresults.html?ss=Ibiza+Airport+Area',
-    tmVenueId: 'KovZpZAFJa5E',
+    officialUrl: 'https://www.dc10ibiza.com',
     pexelsQuery: 'Ibiza underground techno minimal dark club',
     youtubeVideos: [
       { id: 'D9oSAUCboOY', title: 'Circoloco at DC10 Ibiza — 25 Years 2024' },
